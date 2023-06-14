@@ -5,3 +5,5 @@ jupyter
 seaborn
 pyshark
 plotly
+pytest
+pyarrow
