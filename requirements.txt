@@ -7,3 +7,4 @@ pyshark
 plotly
 pytest
 pyarrow
+ip2geotools
