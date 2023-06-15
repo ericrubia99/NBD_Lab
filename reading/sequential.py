@@ -1,9 +1,9 @@
 """Module for reading pcap data sequentially."""
 
 import pandas as pd
-from scapy.utils import PcapReader
+from scapy.all import *
 
-from .util import decode_packet
+from util import decode_packet
 
 
 def read_sequential(file_name: str):

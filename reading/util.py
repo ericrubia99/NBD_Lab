@@ -58,7 +58,7 @@ def decode_packet(packet):
 
         transport_type = packet.payload.payload.name
 
-        if transport_type == 'ICMP' or 'NoPayload':
+        if transport_type == 'ICMP' or transport_type == 'NoPayload':
             port_src = -1
             port_dest = -1
         else:
