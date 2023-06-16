@@ -58,12 +58,18 @@ def decode_packet(packet):
 
         transport_type = packet.payload.payload.name
 
+        if transport_type == 'IP':
+            transport_type = packet.payload.payload.payload.name
+            payload = packet.payload.payload.payload
+        else:
+            payload = packet.payload.payload
+
         if transport_type == 'ICMP' or transport_type == 'NoPayload':
             port_src = -1
             port_dest = -1
         else:
-            port_src = packet.payload.payload.fields['sport']
-            port_dest = packet.payload.payload.fields['dport']
+            port_src = payload.fields['sport']
+            port_dest = payload.fields['dport']
 
         return Packet(dscp, 20, dscp_label, ecn, length, protocol, flag_df, flag_mf, flag_rb, fragment_offset, ttl,
                       ip_src, ip_dest, port_src, port_dest, time)
