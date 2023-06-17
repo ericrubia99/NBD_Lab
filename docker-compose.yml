@@ -11,9 +11,9 @@ services:
     build:
       dockerfile: Dockerfile
       args:
-        - n_packets:10
-        - type:s
-        - output_dir:./timings/
+        n_packets: 10
+        type: s
+        output_dir: ./timings/
     volumes:
       - timings:/app/timings
       - logs:/app/logs
