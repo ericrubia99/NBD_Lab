@@ -57,3 +57,13 @@ services:
     volumes:
       - timings:/app/timings
       - logs:/app/logs
+  sequential_1000000:
+    build:
+      dockerfile: Dockerfile
+      args:
+        n_packets: 1000000
+        type: s
+        output_dir: ./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
