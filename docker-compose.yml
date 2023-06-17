@@ -7,10 +7,28 @@ volumes:
     name: logs
 
 services:
-  sequential:
+  sequential_10:
     build: .
     environment:
       - n_packets=10
+      - type=s
+      - output_dir=./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
+  sequential_100:
+    build: .
+    environment:
+      - n_packets=100
+      - type=s
+      - output_dir=./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
+  sequential_1000:
+    build: .
+    environment:
+      - n_packets=1000
       - type=s
       - output_dir=./timings/
     volumes:
