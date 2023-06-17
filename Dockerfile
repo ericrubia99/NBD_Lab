@@ -13,12 +13,12 @@ COPY . .
 RUN  apt-get update \
   && apt-get install -y wget
 
-ENV n_packets 10
+ARG n_packets
 
 RUN wget https://nbd-lab.s3.amazonaws.com/${n_packets}_packets.pcap -P data/
 
-ENV type ""
-ENV output_dir "./"
-ENV file data/${n_packets}_packets.pcap
+ARG type
+ARG output_dir
+ENV file=data/${n_packets}_packets.pcap
 
 CMD ["sh", "-c", "python3 read.py -${type} -f=${file} -o=${output_dir}"]
