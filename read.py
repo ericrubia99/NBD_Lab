@@ -46,16 +46,16 @@ if __name__ == '__main__':
     if not os.path.exists(args.out):
         os.mkdir(args.out)
 
-    out_path = f'{args.out}timing.feather'
+    out_path = f'{args.out}timing_{read_type}_{args.file.split("/")[-1].split(".")[0]}.feather'
 
     timing_df = pd.DataFrame([[read_type, min(times)]], columns=['read_type', 'time_s'])
 
-    if os.path.exists(out_path):
-        logger.info(f"Found existing dataframe at {out_path}.")
-        df = pd.read_feather(out_path)
+    #if os.path.exists(out_path):
+    #    logger.info(f"Found existing dataframe at {out_path}.")
+    #    df = pd.read_feather(out_path)
 
-        logger.info(f"Appending to existing dataframe.")
-        timing_df = pd.concat((timing_df, df), axis=0, ignore_index=True)
+    #    logger.info(f"Appending to existing dataframe.")
+    #    timing_df = pd.concat((timing_df, df), axis=0, ignore_index=True)
 
     timing_df.to_feather(out_path)
     logger.info(f"Saved dataframe to {out_path}.")
