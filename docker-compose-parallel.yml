@@ -1,0 +1,69 @@
+version: "3.9"
+
+volumes:
+  timings:
+    name: timings
+  logs:
+    name: logs
+
+services:
+  parallel_10:
+    build:
+      dockerfile: Dockerfile
+      args:
+        n_packets: 10
+        type: p
+        output_dir: ./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
+  parallel_100:
+    build:
+      dockerfile: Dockerfile
+      args:
+        n_packets: 100
+        type: p
+        output_dir: ./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
+  parallel_1000:
+    build:
+      dockerfile: Dockerfile
+      args:
+        n_packets: 1000
+        type: p
+        output_dir: ./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
+  parallel_10000:
+    build:
+      dockerfile: Dockerfile
+      args:
+        n_packets: 10000
+        type: p
+        output_dir: ./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
+  parallel_100000:
+    build:
+      dockerfile: Dockerfile
+      args:
+        n_packets: 100000
+        type: p
+        output_dir: ./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
+  parallel_1000000:
+    build:
+      dockerfile: Dockerfile
+      args:
+        n_packets: 1000000
+        type: p
+        output_dir: ./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs

@@ -7,7 +7,7 @@ from .util import decode_packet
 from tqdm import tqdm
 
 
-def read_sequential(file_name: str):
+def read_sequential(file_name: str, verbose=False):
     """Reads the pcap file at the given location and creates a pandas dataframe with the packets in the file.
 
     :arg
@@ -18,7 +18,7 @@ def read_sequential(file_name: str):
     """
     packets = []
 
-    for pkt in PcapReader(file_name):
+    for pkt in tqdm(PcapReader(file_name), disable=not verbose):
 
         packet = decode_packet(pkt)
         if packet:

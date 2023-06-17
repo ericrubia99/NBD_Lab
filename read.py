@@ -24,6 +24,7 @@ if __name__ == '__main__':
 
     parser.add_argument('-f', '--file', type=str, required=True, help="Path to the pcap file to be read.")
     parser.add_argument('-o', '--out', type=str, required=True, help="Output directory where the timing data will be saved.")
+    parser.add_argument('-v', '--verbose', action='store_true', help="Verbosity, prints the loop speeds with tqdm.")
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-p', '--parallel', action='store_true')
@@ -39,7 +40,7 @@ if __name__ == '__main__':
     elif args.sequential:
         logger.info(f"Reading from {args.file} sequentially.")
         read_type = 'sequential'
-        times = timeit.Timer(lambda: read_sequential(args.file)).repeat(1, 1)
+        times = timeit.Timer(lambda: read_sequential(args.file, verbose=args.verbose)).repeat(1, 1)
 
         logger.info(f"Finished reading.")
 

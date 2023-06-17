@@ -24,4 +24,4 @@ ENV output_dir=${output_dir}
 ENV type=${type}
 ENV file=data/${n_packets}_packets.pcap
 
-CMD ["sh", "-c", "python3 read.py -${type} -f=${file} -o=${output_dir}"]
+CMD ["sh", "-c", "python3 read.py -${type} -f=${file} -o=${output_dir} -v"]
