@@ -10,11 +10,9 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-RUN  apt-get update -y && \
-     apt-get install unzip
+ENV n_packets 10
 
-RUN unzip -o data/packets.zip -d data/
-
+RUN wget -o data/${n_packets}_packets.pcap https://nbd-lab.s3.amazonaws.com/${n_packets}_packets.pcap
 
 ENV type ""
 ENV output_dir "./"

@@ -2,6 +2,7 @@ import argparse
 import os
 import timeit
 import logging
+from pathlib import Path
 
 import pandas as pd
 
@@ -9,6 +10,9 @@ from reading import read_parallel, read_sequential
 
 
 if __name__ == '__main__':
+    log_dir = "logs"
+    Path(log_dir).mkdir(parents=True, exist_ok=True)
+
     logging.basicConfig(format='%(name)s:%(levelname)s:%(asctime)s - %(message)s', handlers=[
         logging.FileHandler("debug.log", mode='a'),
         logging.StreamHandler()
@@ -38,6 +42,9 @@ if __name__ == '__main__':
         times = timeit.Timer(lambda: read_sequential(args.file)).repeat(1, 1)
 
         logger.info(f"Finished reading.")
+
+    if not os.path.exists(args.out):
+        os.mkdir(args.out)
 
     out_path = f'{args.out}timing.feather'
 

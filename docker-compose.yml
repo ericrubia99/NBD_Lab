@@ -10,6 +10,7 @@ services:
   sequential:
     build: .
     environment:
+      - n_packets=10
       - type=s
       - file=./data/packets.pcap
       - output_dir=./timings/
