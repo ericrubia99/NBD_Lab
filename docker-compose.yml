@@ -12,7 +12,6 @@ services:
     environment:
       - n_packets=10
       - type=s
-      - file=./data/packets.pcap
       - output_dir=./timings/
     volumes:
       - timings:/app/timings
