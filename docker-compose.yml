@@ -1,0 +1,18 @@
+version: "3.9"
+
+volumes:
+  timings:
+    name: timings
+  logs:
+    name: logs
+
+services:
+  sequential:
+    build: .
+    environment:
+      - type=s
+      - file=./data/packets.pcap
+      - output_dir=./timings/
+    volumes:
+      - timings:/app/timings
+      - logs:/app/logs
