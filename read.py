@@ -3,7 +3,7 @@ import os
 import timeit
 import logging
 from pathlib import Path
-
+import re
 import pandas as pd
 
 from reading import read_parallel, read_sequential
@@ -24,6 +24,8 @@ if __name__ == '__main__':
 
     parser.add_argument('-f', '--file', type=str, required=True, help="Path to the pcap file to be read.")
     parser.add_argument('-o', '--out', type=str, required=True, help="Output directory where the timing data will be saved.")
+    parser.add_argument('-n', '--num', type=int, help="Number of packets per file for the parallel processing.")
+    parser.add_argument('-m', '--max-processes', type=int, help="The maximum number of parallel processes for the parallel processing.")
     parser.add_argument('-v', '--verbose', action='store_true', help="Verbosity, prints the loop speeds with tqdm.")
 
     group = parser.add_mutually_exclusive_group(required=True)
@@ -34,7 +36,7 @@ if __name__ == '__main__':
     if args.parallel:
         logger.info(f"Reading from {args.file} in parallel.")
         read_type = 'parallel'
-        times = timeit.Timer(lambda: read_parallel(args.file, 1000, 100)).repeat(1, 1)
+        times = timeit.Timer(lambda: read_parallel(args.file, args.num, args.max_processes, args.verbose)).repeat(1, 1)
         logger.info(f"Finished reading.")
 
     elif args.sequential:
@@ -49,7 +51,18 @@ if __name__ == '__main__':
 
     out_path = f'{args.out}timing_{read_type}_{args.file.split("/")[-1].split(".")[0]}.feather'
 
-    timing_df = pd.DataFrame([[read_type, min(times)]], columns=['read_type', 'time_s'])
+    file_info = os.popen(f'capinfos -c {args.file}').read()
+    n_packets = re.split(":|\n", file_info)[-2]
+    try:
+        n_packets = int(n_packets)
+
+    # if we cannot cast to an int, it means that we have more than 1000 packets in the file, since capinfos writes it as
+    # 10 k for example.
+    except ValueError as ve:
+        n_packets = int(n_packets.split("k")[0])
+        n_packets *= 1000
+
+    timing_df = pd.DataFrame([[read_type, n_packets, min(times)]], columns=['read_type', 'n_packets', 'time_s'])
 
     #if os.path.exists(out_path):
     #    logger.info(f"Found existing dataframe at {out_path}.")

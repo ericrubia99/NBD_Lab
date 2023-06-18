@@ -10,7 +10,7 @@ from tqdm import tqdm
 from reading import read_sequential
 
 
-def read_parallel(file_path: str, packets_per_file: int, max_parallel_processes: int):
+def read_parallel(file_path: str, packets_per_file: int, max_parallel_processes: int, verbose=False):
     """Reads a pcap file in parallel and creates a dataframe of its contents.
 
     :arg
@@ -47,14 +47,14 @@ def read_parallel(file_path: str, packets_per_file: int, max_parallel_processes:
 
     processes = []
 
-    for i, file in tqdm(enumerate(files)):
+    for i, file in tqdm(enumerate(files), disable=not verbose):
         process = Process(target=read_sequential, args=(file,))
 
         processes.append(process)
 
         process.start()
 
-        if i % max_parallel_processes == 0:
+        if i % max_parallel_processes == 0 and i > 0:
             print("Maximum number of process reached")
             for process in processes:
                 process.join()
