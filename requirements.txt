@@ -8,3 +8,6 @@ plotly
 pytest
 pyarrow
 ip2geotools
+tqdm
+dpkt
+scapy
