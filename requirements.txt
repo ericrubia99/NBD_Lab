@@ -11,3 +11,4 @@ ip2geotools
 tqdm
 dpkt
 scapy
+itables
