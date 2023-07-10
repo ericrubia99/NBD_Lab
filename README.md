@@ -15,7 +15,7 @@ https://drive.google.com/drive/folders/1YMwwPoekwJrw_-UYkZYUkTFqC8bqAy0F?usp=sha
 The repository consists of the following:
 
 * `main.ipynb`: main notebook with visualisations and comments.
-* `data`: the data that was used, `.pcap` file and the extracted `.feather` dataframe, stored as `.zip` files.
+* `data`: the data that was used, `.pcap` file and the extracted `.feather` dataframe, stored as `.zip` files. You need to extract these zip files first.
 * `plot`: contains plotting functions.
 * `reading`: contains functionality for timing parallel vs sequential reading.
 * `util`: utility functions.
