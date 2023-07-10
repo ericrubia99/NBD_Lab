@@ -11,6 +11,9 @@ ip2geotools
 tqdm
 dpkt
 scapy
+itables
+folium
 scikit-learn
 imblearn
 kneed
+networkx
