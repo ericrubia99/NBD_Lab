@@ -11,3 +11,6 @@ ip2geotools
 tqdm
 dpkt
 scapy
+scikit-learn
+imblearn
+kneed
