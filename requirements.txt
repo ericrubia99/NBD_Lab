@@ -13,3 +13,6 @@ dpkt
 scapy
 itables
 folium
+scikit-learn
+imblearn
+kneed
